@@ -1,1 +1,3 @@
-<p>{{galleryPicture.name}}</p>
+<div class="unit" [ngStyle]="{'top.px': galleryPicture.y, 'left.px': galleryPicture.x}">
+  <img [src]="galleryPicture.url" alt="">
+</div>

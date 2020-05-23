@@ -17,7 +17,8 @@
     ],
     "paths": {
       "@api/*": ["src/app/api/*"],
-      "@model/*": ["src/app/model/*"]
+      "@model/*": ["src/app/model/*"],
+      "@utils/*": ["src/app/utils/*"]
     }
   },
   "angularCompilerOptions": {

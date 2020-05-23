@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { GalleryPicture } from '../interface';
 import { PicturesService } from '@api/pictures.service';
+import { getIntRandomWithUpper } from '@utils/random';
 
 @Component({
   selector: 'app-gallery',
@@ -10,6 +11,7 @@ import { PicturesService } from '@api/pictures.service';
 })
 export class GalleryComponent implements OnInit {
   data: BehaviorSubject<GalleryPicture[]> = new BehaviorSubject([]);
+  @ViewChild('gallery') galleryDom: ElementRef<HTMLDivElement>;
   constructor(
     private entitiesService: PicturesService
   ) { }
@@ -18,8 +20,8 @@ export class GalleryComponent implements OnInit {
     this.entitiesService.getAll().subscribe(res => {
       this.data.next(res.map(o => {
         const layout = {
-          x: 1,
-          y: 1,
+          x: this.getMaxLeft(),
+          y: this.getMaxTop(),
           rotate: 1,
           isReversed: false,
         };
@@ -29,6 +31,14 @@ export class GalleryComponent implements OnInit {
         };
       }));
     });
+  }
+
+  getMaxLeft(): number {
+    return getIntRandomWithUpper(this.galleryDom.nativeElement.clientWidth);
+  }
+
+  getMaxTop(): number {
+    return getIntRandomWithUpper(this.galleryDom.nativeElement.clientHeight);
   }
 
 }
