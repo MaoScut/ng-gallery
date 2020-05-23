@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { GalleryModule } from './modules/gallery/gallery.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -11,6 +12,7 @@ import { GalleryModule } from './modules/gallery/gallery.module';
   imports: [
     BrowserModule,
     GalleryModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

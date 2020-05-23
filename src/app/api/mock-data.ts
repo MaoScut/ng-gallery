@@ -1,10 +1,11 @@
-import { Picture } from '../model/picture';
-
+import { Picture } from '@model/picture';
 
 const pictureCount = 21;
 
-function dataFactory(): Picture[] {
-  const result: Picture[] = [];
+type BasicPicture = Pick<Picture, 'name' | 'description' | 'url' | 'id'>;
+
+function dataFactory(): BasicPicture[] {
+  const result: BasicPicture[] = [];
   for (let i = 0; i < pictureCount; i ++) {
     result.push({
       name: 'name' + i,
@@ -16,4 +17,4 @@ function dataFactory(): Picture[] {
   return result;
 }
 
-export const mockPictures: Picture[] = dataFactory();
+export const mockPictures: BasicPicture[] = dataFactory();

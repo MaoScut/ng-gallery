@@ -5435,6 +5435,11 @@ neo-async@^2.5.0, neo-async@^2.6.1:
   resolved "https://registry.npm.taobao.org/neo-async/download/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
   integrity sha1-rCetpmFn+ohJpq3dg39rGJrSCBw=
 
+ngx-spinner@^9.0.2:
+  version "9.0.2"
+  resolved "https://registry.npm.taobao.org/ngx-spinner/download/ngx-spinner-9.0.2.tgz#18123741cec4f7a29fa63d8d9cb769e58f4b8b85"
+  integrity sha1-GBI3Qc7E96Kfpj2NnLdp5Y9Li4U=
+
 nice-try@^1.0.4:
   version "1.0.5"
   resolved "https://registry.npm.taobao.org/nice-try/download/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
