@@ -5,4 +5,5 @@ export interface GalleryPicture extends Picture {
   y: number;
   rotate: number;
   isReversed: boolean;
+  isCenter?: boolean;
 }

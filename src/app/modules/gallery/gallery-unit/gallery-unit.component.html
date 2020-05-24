@@ -1,3 +1,3 @@
-<div class="unit" [ngStyle]="{'top.px': galleryPicture.y, 'left.px': galleryPicture.x, 'transform': galleryPicture.rotate|numberToRotate}">
+<div [ngClass]="{'center': galleryPicture.isCenter}" class="unit" [ngStyle]="{'top.px': galleryPicture.y, 'left.px': galleryPicture.x, 'transform': galleryPicture.rotate|numberToRotate}">
   <img class="img" [src]="galleryPicture.url" alt="">
 </div>

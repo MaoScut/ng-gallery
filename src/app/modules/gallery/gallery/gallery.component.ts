@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, TrackByFunction } from '@angu
 import { BehaviorSubject, timer } from 'rxjs';
 import { GalleryPicture } from '../interface';
 import { PicturesService } from '@api/pictures.service';
-import { getIntRandomWithUpper, getRandomRotate } from '@utils/random';
+import { getIntRandomWithUpper, getRandomRotate, getRandomLayout } from '@utils/random';
 import { getImageInfo } from '@utils/image';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { finalize, tap, flatMap } from 'rxjs/operators';
@@ -13,13 +13,14 @@ import { finalize, tap, flatMap } from 'rxjs/operators';
   styleUrls: ['./gallery.component.less'],
 })
 export class GalleryComponent implements OnInit {
-  data: BehaviorSubject<GalleryPicture[]> = new BehaviorSubject([]);
-  @ViewChild('gallery') galleryDom: ElementRef<HTMLDivElement>;
-  trackByFn: TrackByFunction<GalleryPicture> = (index, item) => item.id;
   constructor(
     private entitiesService: PicturesService,
     private spinner: NgxSpinnerService
   ) {}
+  data: BehaviorSubject<GalleryPicture[]> = new BehaviorSubject([]);
+  @ViewChild('gallery') galleryDom: ElementRef<HTMLDivElement>;
+  pictureUnitDefaultWidth = 300;
+  trackByFn: TrackByFunction<GalleryPicture> = (index, item) => item.id;
 
   ngOnInit(): void {
     this.loadImage();
@@ -51,20 +52,7 @@ export class GalleryComponent implements OnInit {
         finalize(() => this.spinner.hide()),
       )
       .subscribe((_) => {
-        this.data.next(
-          this.data.getValue().map((o) => {
-            const layout = {
-              x: this.getRandomLeft(),
-              y: this.getRandomTop(),
-              rotate: getRandomRotate(),
-              isReversed: false,
-            };
-            return {
-              ...o,
-              ...layout,
-            };
-          })
-        );
+        this.layoutUnit();
       });
   }
 
@@ -74,6 +62,37 @@ export class GalleryComponent implements OnInit {
 
   getRandomTop(): number {
     return getIntRandomWithUpper(this.galleryDom.nativeElement.clientHeight);
+  }
+
+  layoutUnit(centerId?: string): void {
+    let centerIndex = 0;
+    if (centerId) {
+      centerIndex = this.data.getValue().findIndex(o => o.id === centerId);
+    }
+    const defaultWidth = this.pictureUnitDefaultWidth;
+    const randomLayouts = getRandomLayout({
+      width: this.galleryDom.nativeElement.clientWidth,
+      height: this.galleryDom.nativeElement.clientHeight,
+    }, this.data.getValue().map(o => {
+      return {
+        width: defaultWidth,
+        height: defaultWidth / o.proportion
+      };
+    }),
+    centerIndex,
+    );
+    const nextData = this.data.getValue().map((o, index) => {
+      const layout = randomLayouts[index];
+      return {
+        ...o,
+        x: layout.x - defaultWidth / 2,
+        y: layout.y - (defaultWidth / o.proportion) / 2,
+        isReversed: false,
+        rotate: layout.rotate,
+        isCenter: layout.isCenter,
+      };
+    });
+    this.data.next(nextData);
   }
 
 }

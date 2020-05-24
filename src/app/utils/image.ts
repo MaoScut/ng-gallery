@@ -4,7 +4,9 @@ import { map, take } from 'rxjs/operators';
 export interface ImageInfo {
   naturalWidth: number;
   naturalHeight: number;
-  // 宽比高
+  /**
+   * 宽比高
+   */
   proportion: number;
 }
 

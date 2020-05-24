@@ -1,4 +1,4 @@
 <div class="gallery" #gallery>
-  <app-gallery-unit *ngFor="let o of (data|async); trackBy: trackByFn" [galleryPicture]="o"></app-gallery-unit>
+  <app-gallery-unit (click)="layoutUnit(o.id)" *ngFor="let o of (data|async); trackBy: trackByFn" [galleryPicture]="o"></app-gallery-unit>
   <ngx-spinner></ngx-spinner>
 </div>
