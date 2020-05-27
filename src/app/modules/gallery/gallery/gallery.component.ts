@@ -63,7 +63,16 @@ export class GalleryComponent implements OnInit {
   getRandomTop(): number {
     return getIntRandomWithUpper(this.galleryDom.nativeElement.clientHeight);
   }
-
+  handleUnitClick(id: string): void {
+    const data = this.data.getValue();
+    const unit = data.find(o => o.id === id);
+    if (unit.isCenter) {
+      unit.isReversed = !unit.isReversed;
+      this.data.next(data);
+    } else {
+      this.layoutUnit(unit.id);
+    }
+  }
   layoutUnit(centerId?: string): void {
     let centerIndex = 0;
     if (centerId) {

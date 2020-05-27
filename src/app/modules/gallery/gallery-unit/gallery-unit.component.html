@@ -1,3 +1,7 @@
-<div [ngClass]="{'center': galleryPicture.isCenter}" class="unit" [ngStyle]="{'top.px': galleryPicture.y, 'left.px': galleryPicture.x, 'transform': galleryPicture.rotate|numberToRotate}">
+<div [ngClass]="{'center': galleryPicture.isCenter, 'reverse': galleryPicture.isReversed}" class="unit" [ngStyle]="{'top.px': galleryPicture.y, 'left.px': galleryPicture.x, 'transform': (galleryPicture.isCenter ? null : (galleryPicture.rotate|numberToRotate))}">
   <img class="img" [src]="galleryPicture.url" alt="">
+  <div class="text">
+    <h4 class="title">{{galleryPicture.name}}</h4>
+    <p>{{galleryPicture.description}}</p>
+  </div>
 </div>
